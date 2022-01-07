@@ -10,8 +10,6 @@ NC='\033[0m' # No Color
 
 # create an alias `scan` to invoke this script 
 
-# check if nmap output file already exists 
-
 ext=".txt"
 timestamp="_$(date "+%Y%m%d-%H.%M.%S")";
 IP=$1
@@ -23,7 +21,6 @@ udptop1000="udp_top_1000_$IP$timestamp$ext"
 udptop1000svc="udp_top_1000_svc_$IP$timestamp$ext"
 udpall="udp_all_ports_$IP$timestamp$ext"
 udpallsvc="udp_all_ports_svc_$IP$timestamp$ext"
-
 
 
 # TCP Scans
@@ -67,8 +64,6 @@ else
 
     elif [[ "$fastports" == "$slowports" ]]
     then
-        # printf "%s\n${LGREEN}Fast Scan => Open Ports: $fastports ${NC}"
-        # printf "%s\n${LGREEN}Slow Scan => Open Ports: $slowports ${NC}"
         printf "%s\n\n${LGREEN}No new ports found in Slow Nmap Scan... ${NC}\n"
     fi
 
@@ -88,7 +83,7 @@ else
     else
         printf "%s\n${LGREEN}UDP Top 1000 Ports Scan => Open Ports: $udp1000openports ${NC}\n\n"
         printf "%s${LGREEN}Initiating Service Detection and Scripts Scan on Open UDP Ports...${NC}\n\n"
-        printf "%s${WHITE}sudo nmap -Pn -sU -A -p $udp1000openports -oN $udptop1000svc $IP\n\n"
+        printf "%s${WHITE}sudo nmap -Pn -sU -A -p $udp1000openports -oN $udptop1000svc $IP${NC}\n\n"
         sudo nmap -Pn -sU -A -p $udp1000openports -v -oN $udptop1000svc $IP
 
     fi    
@@ -105,7 +100,7 @@ else
     else
         printf "%s\n${LGREEN}UDP All Ports Scan => Open Ports: $udpallopenports ${NC}\n\n"
         printf "%s\n${LGREEN}Initiating Service Detection and Scripts Scan on Open UDP Ports... ${NC}\n\n"
-        printf "%s\n${WHITE}sudo nmap -Pn -sU -A -p $udpallopenports -v -oN $udpallsvc $IP\n\n"
+        printf "%s\n${WHITE}sudo nmap -Pn -sU -A -p $udpallopenports -v -oN $udpallsvc $IP${NC}\n\n"
         sudo nmap -Pn -sU -A -p $udpallopenports -v -oN $udpallsvc $IP
     fi
 fi
