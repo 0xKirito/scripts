@@ -6,8 +6,8 @@ TUN0IP=$((ifconfig tun0 | awk '/inet /{print $2}') 2>/dev/null)
 if [[ ! -z "$TUN0IP" ]];
 then 
     # echo "$({ ip -4 -br a sh dev tun0 | awk {'print $3'} | cut -f1 -d/; } 2>/dev/null) "
-    echo "$TUN0IP "
+    echo " $TUN0IP "
 else 
-    echo "disconnected "
+    echo " disconnected "
 fi
 
